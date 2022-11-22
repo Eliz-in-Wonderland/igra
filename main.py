@@ -1,63 +1,270 @@
-import sys
-print('Вам предстоит принять участие в викторине. У вас есть право на 3 ошибки. Если вы ответите правильно на три вопроса из пяти - вы победили.')
-answer=input('Вы готовы начать? (да/нет) :')
-score=0
-i=3
-if answer.lower()=='да':
-    print('Супер! Тогда первый вопрос: ')
-answer = input('В какой стране построено самое высокое здание в мире?')
-if answer.lower() == 'оаэ' or answer.lower() =='объединенные арабские эмираты':
-        score += 1
-        print('Верно! Вы молодец! Продолжаем.')
-else:
-    i = i - 1
-    print('Ответ неверный. Осталось попыток: ', i)
+import os
 
-print('Второй вопрос: ')
-answer = input('Кто написал первую машинную программу?')
-if answer.lower() == 'ада лавлейс':
-    score+=1
-    print('Отлично! Поехали дальше.')
-else:
-    i = i - 1
-    print ('Ответ неверный. Осталось попыток: ', i)
+q = 'В какой стране построено самое высокое здание в мире?'
+p = [
+    {
+        'value': 'оаэ',
+        'correct': True,
+        'visible': True
+    },
 
-print('Третий вопрос: ')
-answer = input('Сколько лет правила Елизавета I (Английская)?')
-if answer.lower() == '45' or answer.lower() == '45 лет':
-    score+=1
-    print('Юху! Ответ верный. Впереди еще два вопроса.')
-else:
-    i = i - 1
-    print ('Ответ неверный. Осталось попыток: ', i)
+    {
+        'value': 'франция',
+        'correct': False,
+        'visible': True
+    },
 
-if i==0:
-    sys.exit('Викторина окончена. Приходите поиграть еще!')
+    {
+        'value': 'сша',
+        'correct': False,
+        'visible': True
+    },
 
-print('Четвертый вопрос: ')
-answer = input('В каком году последний штат США ратифицировал поправку о равных правах?')
-if answer.lower() == '2019':
-    score += 1
-    print('Гениально! Остался последний вопрос.')
-else:
-    i = i - 1
-    print ('Ответ неверный.', 'Осталось попыток: ', score)
+]
 
-if i<1:
-    sys.exit('Викторина окончена. Приходите поиграть еще!')
+def printOptions(options):
+    print('Варианты ответов:')
 
-print('Пятый вопрос: ')
-answer = input('Кто на самом деле открыл структуру ДНК?')
-if answer.lower() == 'розалинд франклин':
-    score += 1
-    print('Ура! Вы дали правильный ответ.')
-else:
-    i = i - 1
-    print ('Ответ неверный. Осталось попыток: ', i)
 
-if score==5:
-    print('Ура! Это БЕЗОГОВОРОЧНАЯ победа! Вы обладаете прекрасной эрудицией.', 'ВАШ РЕЗУЛЬТАТ: ', score)
+    for option in options:
+        if not option['visible']:
+            continue
+        print('○ {}'.format(option['value']))
 
-else:
-    print('ВАШ РЕЗУЛЬТАТ: ', score, 'из 5')
-    sys.exit('Викторина окончена. Приходите поиграть еще!')
+
+def getAnswer(question, options):
+    finished = False
+
+    while not finished:
+        print('Вопрос: {}'.format(question))
+        printOptions(p)
+        os.system('clear')
+
+        answer = input().lower()
+
+        for option in p:
+            if option['value'] == answer:
+                if option['correct']:
+                    finished = True
+                    print('Молодец! Все ты знаешь.')
+                else:
+                    option['visible'] = False
+                    print('Ошибка! Пробуй еще раз!')
+
+                break
+getAnswer(q, p)
+
+l = 'Кто написал первую машинную программу?'
+n = [
+{
+        'znach': 'ада лавлейс',
+        'correct': True,
+        'visible': True
+    },
+
+    {
+        'znach': 'леонардо да винчи',
+        'correct': False,
+        'visible': True
+    },
+
+    {
+        'znach': 'братья люмьер',
+        'correct': False,
+        'visible': True
+    },
+]
+
+def printVariants(variants):
+    print('Варианты ответов:')
+
+    for variant in variants:
+        if not variant['visible']:
+            continue
+        print('○ {}'.format(variant['znach']))
+
+
+def getAnswers(question, variants):
+    finished = False
+
+    while not finished:
+        print('Вопрос: {}'.format(question))
+        printVariants(n)
+        os.system('clear')
+
+        answer = input().lower()
+
+        for variant in n:
+            if variant['znach'] == answer:
+                if variant['correct']:
+                    finished = True
+                    print('Круто! Мне нравится твой настрой')
+                else:
+                    variant['visible'] = False
+                    print('Чего-то ты не в ресурсе. Попробуй еще разок!')
+
+                break
+getAnswers(l, n)
+
+
+b = 'Сколько лет правила королева Елизавета I (английская)?'
+d = [
+{
+        'otv': '45',
+        'correct': True,
+        'visible': True
+    },
+
+    {
+        'otv': '60',
+        'correct': False,
+        'visible': True
+    },
+
+    {
+        'otv': '70',
+        'correct': False,
+        'visible': True
+    },
+]
+
+def printVariantiki(variantiks):
+    print('Варианты ответов:')
+
+    for variantik in variantiks:
+        if not variantik['visible']:
+            continue
+        print('○ {}'.format(variantik['otv']))
+
+
+def getOtvetikis(question, variantiks):
+    finished = False
+
+    while not finished:
+        print('Вопрос: {}'.format(question))
+        printVariantiki(d)
+        os.system('clear')
+
+        answer = input().lower()
+
+        for qws in d:
+            if qws ['otv'] == answer:
+                if qws ['correct']:
+                    finished = True
+                    print('Круто! Мне нравится твой настрой. Мы продолжаем!')
+                else:
+                    qws['visible'] = False
+                    print('Чего-то ты не в ресурсе. Попробуй еще разок!')
+
+                break
+getOtvetikis(b, d)
+
+
+x = 'В каком году последний штат США ратифицировал поправку о равных правах?'
+y = [
+    {
+        'ch': '2019',
+        'correct': True,
+        'visible': True
+    },
+
+    {
+        'ch': '1975',
+        'correct': False,
+        'visible': True
+    },
+
+    {
+        'ch': '1890',
+        'correct': False,
+        'visible': True
+    },
+
+]
+
+
+def printChtos(chtos):
+    print('Варианты ответов:')
+
+    for chto in chtos:
+        if not chto['visible']:
+            continue
+        print('○ {}'.format(chto['ch']))
+
+
+def getChtos(question, chtos):
+    finished = False
+
+    while not finished:
+        print('Вопрос: {}'.format(question))
+        printChtos(y)
+        os.system('clear')
+
+        answer = input().lower()
+
+        for option in y:
+            if option['ch'] == answer:
+                if option['correct']:
+                    finished = True
+                    print('Великолепно! Остался финальный вопрос. Готовься!')
+                else:
+                    option['visible'] = False
+                    print('А если подумать?')
+
+                break
+getChtos(x, y)
+
+r = 'Кто на самом деле открыл структура ДНК?'
+e = [
+    {
+        'fin': 'розалинд франклин',
+        'correct': True,
+        'visible': True
+    },
+
+    {
+        'fin': 'мария складовская-кюри',
+        'correct': False,
+        'visible': True
+    },
+
+    {
+        'fin': 'хеди ламарр',
+        'correct': False,
+        'visible': True
+    },
+
+]
+
+
+def printFinals(finals):
+    print('Варианты ответов:')
+
+    for fins in finals:
+        if not fins['visible']:
+            continue
+        print('○ {}'.format(fins['fin']))
+
+
+def getFinals(question, finals):
+    finished = False
+
+    while not finished:
+        print('Вопрос: {}'.format(question))
+        printFinals(e)
+        os.system('clear')
+
+        answer = input().lower()
+
+        for option in e:
+            if option['fin'] == answer:
+                if option['correct']:
+                    finished = True
+                    print('Ну все! Теперь ты рафинированный интеллектуал. Живи с этим.')
+                else:
+                    option['visible'] = False
+                    print('Ну, одна ошибка - не трагедия. Еще потыкай.')
+
+                break
+getFinals(r, e)
+
